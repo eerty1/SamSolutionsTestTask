@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <property name="LOG_DIR" value="./logs"/>
+    <property name="SAM_SOLUTIONS_LOG_FILE" value="${LOG_DIR}/sam_solutions.log"/>
+    <property name="EXPIRED_URLS_STATISTICS_LOG_FILE" value="${LOG_DIR}/expired_urls_statistics.log"/>
+
+    <appender name="SAM_SOLUTIONS_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${SAM_SOLUTIONS_LOG_FILE}</file>
+        <createOnStart>true</createOnStart>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${SAM_SOLUTIONS_LOG_FILE}-%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <maxFileSize>${SAM_SOLUTIONS_FILE_APPENDER_MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${SAM_SOLUTIONS_FILE_APPENDER_MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${SAM_SOLUTIONS_FILE_APPENDER_TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="EXPIRED_URLS_STATISTICS_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${EXPIRED_URLS_STATISTICS_LOG_FILE}</file>
+        <createOnStart>true</createOnStart>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${EXPIRED_URLS_STATISTICS_LOG_FILE}-%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <maxFileSize>${EXPIRED_URLS_STATISTICS_FILE_APPENDER_MAX_FILE_SIZE}</maxFileSize>
+            <maxHistory>${EXPIRED_URLS_STATISTICS_FILE_APPENDER_MAX_HISTORY}</maxHistory>
+            <totalSizeCap>${EXPIRED_URLS_STATISTICS_FILE_APPENDER_TOTAL_SIZE_CAP}</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="SAM_SOLUTIONS_FILE_APPENDER"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+    <logger name="EXPIRED_URLS_STATISTICS_LOGGER" level="INFO" additivity="false">
+        <appender-ref ref="EXPIRED_URLS_STATISTICS_FILE_APPENDER"/>
+    </logger>
+</configuration>

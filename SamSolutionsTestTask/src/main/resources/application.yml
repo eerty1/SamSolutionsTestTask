@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    generate-ddl: true
+
+#change expired urls deletion frequency based on the server load
+scheduler:
+  rate: ${SCHEDULER_RATE}
+  initial-delay: ${SCHEDULER_INITIAL_DELAY}
+
+#later change to website domain name
+url-shortener-domain: http://localhost:8080/
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /api/sam-solutions-test-task-endpoints
